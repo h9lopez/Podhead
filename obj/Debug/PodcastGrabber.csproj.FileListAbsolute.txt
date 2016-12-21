@@ -1,0 +1,8 @@
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\bin\Debug\PodcastGrabber.exe.config
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\bin\Debug\PodcastGrabber.exe
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\bin\Debug\PodcastGrabber.pdb
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\obj\Debug\PodcastGrabber.csprojResolveAssemblyReference.cache
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\obj\Debug\PodcastGrabber.exe
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\obj\Debug\PodcastGrabber.pdb
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Huandari\Documents\Visual Studio 2015\Projects\PodcastGrabber\bin\Debug\Newtonsoft.Json.xml
