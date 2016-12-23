@@ -20,6 +20,8 @@ namespace PodcastGrabber
 
         static void Main(string[] args)
         {
+            //PodStreamer.GetData("http://traffic.libsyn.com/thefighterandthekid/BBB_Alan_Jouban.mp3?dest-id=448491");
+
             WebRequest req = WebRequest.Create("https://itunes.apple.com/search?term=fighter+and+the+kid&limit=1&media=podcast&entity=podcast");
             req.Method = WebRequestMethods.Http.Get;
             req.ContentType = "application/json";
@@ -31,18 +33,24 @@ namespace PodcastGrabber
                 ptext = sr.ReadToEnd();
             }
 
-            Console.WriteLine(ptext);
+            //Console.WriteLine(ptext);
 
             AppleRepoParser parser = new AppleRepoParser();
             var results = parser.ParseJSON(ptext);
 
-            Console.WriteLine(results.Count);
+            //Console.WriteLine(results.Count);
 
-            Console.WriteLine(results[0].FeedLink);
+            //Console.WriteLine(results[0].FeedLink);
             RSSReader reader = new RSSReader( new Uri(results[0].FeedLink) );
             //reader.rssData = GetRSSFeed( results[0].FeedLink );
             reader.rssData = results[0].FeedLink;
-            reader.ParseRSS();
+            Series foundSeries = reader.ParseSeriesRSS();
+
+            Console.WriteLine(foundSeries);
+
+            Episode dummyEp = foundSeries.Episodes[0];
+            Console.WriteLine("Grabbing EP {0} from URL {1}", dummyEp.Name, dummyEp.ContentInfo.Link);
+            //PodStreamer.GetData(dummyEp.ContentInfo.Link.ToString());
 
             res.Close();
         }

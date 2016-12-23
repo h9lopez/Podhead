@@ -21,9 +21,11 @@ namespace PodcastGrabber
             this.feedUri = feedUri;
         }
 
-        public void ParseRSS()
+        public Series ParseSeriesRSS()
         {
+            
             XmlDocument doc = new XmlDocument();
+            Series pSeries = new Series();
 
             try
             {
@@ -36,8 +38,17 @@ namespace PodcastGrabber
             this.nsm = new XmlNamespaceManager(doc.NameTable);
             nsm.AddNamespace("itunes", "http://www.itunes.com/dtds/podcast-1.0.dtd");
 
+            // Extract info from the podcast series itself
             XmlNode root = doc.SelectSingleNode("rss/channel");
             Console.WriteLine(root.Name + ", " + root.Value);
+
+            XmlNode seriesName = root.SelectSingleNode("title");
+            pSeries.Name = seriesName.InnerText;
+            XmlNode seriesDesc = root.SelectSingleNode("description");
+            pSeries.Description = seriesDesc.InnerText;
+            XmlNode seriesAuthor = root.SelectSingleNode("itunes:author", this.nsm);
+            pSeries.Author = seriesAuthor.InnerText;
+            pSeries.FeedLink = this.rssData;
 
             XmlNodeList eps = root.SelectNodes("item");
             Console.WriteLine("Length: " + eps.Count);
@@ -48,6 +59,9 @@ namespace PodcastGrabber
             //{
             //    Console.WriteLine(ep + "\n==================");
             //}
+
+            pSeries.Episodes = parsedEps;
+            return pSeries;
 
         }
 

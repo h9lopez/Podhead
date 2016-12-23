@@ -10,8 +10,15 @@ namespace PodcastGrabber
     {
         public string Name;
         public string Author;
+        public string Description;
         public string FeedLink;
-        List<Episode> Episodes;
+        public List<Episode> Episodes;
+
+        public override string ToString()
+        {
+            return (String.Format("SERIES==============\nName:\t\t{0}\nAuthor:\t\t{1}\nDescription:\t\t{2}\nFeedLink:\t\t{3}\nEpisodes:\t\t{4}",
+                                    this.Name, this.Author, this.Description, this.FeedLink, this.Episodes.Count));
+        }
     }
 
     class Episode

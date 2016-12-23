@@ -50,6 +50,7 @@
     <Compile Include="AppleRepoParser.cs" />
     <Compile Include="IExternalRepoParser.cs" />
     <Compile Include="PodcastTypes.cs" />
+    <Compile Include="PodStreamer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSSReader.cs" />
