@@ -20,7 +20,29 @@ namespace PodcastGrabber
 
         static void Main(string[] args)
         {
+            var terms = new SearchTerms();
+            terms.rawString = "this american life";
+
+            AppleSearchEngine engine = new AppleSearchEngine();
+            List<Series> searchRes = engine.searchSeries(terms);
+            Console.WriteLine("Count: " + searchRes.Count);
+            if (searchRes.Count <= 0)
+            {
+                Console.WriteLine("Returned no results");
+            }
+
+            Console.WriteLine(searchRes[0]);
+        }
+
+        static void Main2(string[] args)
+        {
             //PodStreamer.GetData("http://traffic.libsyn.com/thefighterandthekid/BBB_Alan_Jouban.mp3?dest-id=448491");
+
+            AppleSearchEngine aSearch = new AppleSearchEngine();
+            var terms = new SearchTerms();
+            terms.rawString = "the fighter and the kid";
+            var uriRes = aSearch.buildQueryString(terms);
+            Console.WriteLine("Query string: " + uriRes);
 
             WebRequest req = WebRequest.Create("https://itunes.apple.com/search?term=fighter+and+the+kid&limit=1&media=podcast&entity=podcast");
             req.Method = WebRequestMethods.Http.Get;

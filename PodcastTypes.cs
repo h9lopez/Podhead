@@ -16,8 +16,8 @@ namespace PodcastGrabber
 
         public override string ToString()
         {
-            return (String.Format("SERIES==============\nName:\t\t{0}\nAuthor:\t\t{1}\nDescription:\t\t{2}\nFeedLink:\t\t{3}\nEpisodes:\t\t{4}",
-                                    this.Name, this.Author, this.Description, this.FeedLink, this.Episodes.Count));
+            return (String.Format("SERIES==============\nName:\t\t{0}\nAuthor:\t\t{1}\nDescription:\t\t{2}\nFeedLink:\t\t{3}",
+                                    this.Name, this.Author, this.Description, this.FeedLink));
         }
     }
 
@@ -49,5 +49,8 @@ namespace PodcastGrabber
         public string Duration;
     }
 
-
+    class SearchTerms
+    {
+        public string rawString;
+    }
 }
