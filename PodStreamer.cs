@@ -10,7 +10,7 @@ namespace PodcastGrabber
 {
     class PodStreamer
     {
-        public static void GetData(string uri)
+        public static void DownloadMedia(string uri)
         {
             WebRequest req = WebRequest.Create(uri);
             req.Method = WebRequestMethods.Http.Get;
@@ -19,10 +19,16 @@ namespace PodcastGrabber
 
             var res = (HttpWebResponse)req.GetResponse();
 
-            using (var sr = new StreamReader(res.GetResponseStream()))
+            //using (var sr = new StreamReader(res.GetResponseStream()))
+            //{
+            //    var resStr = sr.ReadToEnd();
+            //    Console.WriteLine("Length: " + resStr.Length);
+            //}
+
+            var stream = res.GetResponseStream();
+            using (var fil = File.Create("C:\\Users\\Huandari\\Desktop\\wangteam.mp3"))
             {
-                var resStr = sr.ReadToEnd();
-                Console.WriteLine("Length: " + resStr.Length);
+                stream.CopyTo(fil);
             }
             DateTime end = DateTime.Now;
 
