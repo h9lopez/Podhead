@@ -12,27 +12,30 @@ namespace PodcastGrabber
 {
     class RSSReader
     {
-        private Uri feedUri;
         public string rssData;
         private XmlNamespaceManager nsm;
 
-        public RSSReader(Uri feedUri)
+        public RSSReader()
         {
-            this.feedUri = feedUri;
         }
 
-        public Series ParseSeriesRSS()
+        public Boolean ParseSeriesRSS(ref Series skeleton)
         {
-            
+            if (skeleton == null || String.IsNullOrEmpty(skeleton.FeedLink))
+            {
+                Console.WriteLine("Invalid object or no feed link present");
+                return false;
+            }
+
             XmlDocument doc = new XmlDocument();
-            Series pSeries = new Series();
 
             try
             {
-                doc.Load(this.rssData);
+                doc.Load(skeleton.FeedLink);
             } catch (Exception)
             {
                 Console.WriteLine("Error loading from XML stream.");
+                return false;
             }
 
             this.nsm = new XmlNamespaceManager(doc.NameTable);
@@ -43,26 +46,24 @@ namespace PodcastGrabber
             Console.WriteLine(root.Name + ", " + root.Value);
 
             XmlNode seriesName = root.SelectSingleNode("title");
-            pSeries.Name = seriesName.InnerText;
+            skeleton.Name = seriesName.InnerText;
             XmlNode seriesDesc = root.SelectSingleNode("description");
-            pSeries.Description = seriesDesc.InnerText;
+            skeleton.Description = seriesDesc.InnerText;
             XmlNode seriesAuthor = root.SelectSingleNode("itunes:author", this.nsm);
-            pSeries.Author = seriesAuthor.InnerText;
-            pSeries.FeedLink = this.rssData;
+            skeleton.Author = seriesAuthor.InnerText;
 
             XmlNodeList eps = root.SelectNodes("item");
-            Console.WriteLine("Length: " + eps.Count);
+            //Console.WriteLine("Length: " + eps.Count);
 
             var parsedEps = this.parseEpisodes(eps);
-            Console.WriteLine(parsedEps[0]);
+            //Console.WriteLine(parsedEps[0]);
             //foreach (Episode ep in parsedEps)
             //{
             //    Console.WriteLine(ep + "\n==================");
             //}
 
-            pSeries.Episodes = parsedEps;
-            return pSeries;
-
+            skeleton.Episodes = parsedEps;
+            return true;
         }
 
         public Episode parseEpisode(XmlNode ep)
